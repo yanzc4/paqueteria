@@ -1,0 +1,34 @@
+name: Deploy to InfinityFree
+
+on:
+  push:
+    branches:
+      - main # cambia a master si usas esa rama
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: FTP Deploy (incremental)
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
+        with:
+          server: ${{ secrets.FTP_SERVER }}
+          username: ${{ secrets.FTP_USER }}
+          password: ${{ secrets.FTP_PASS }}
+          server-dir: /tienda2.totalh.net/htdocs/
+          exclude: |
+            **/.git*
+            **/.github/**
+            **/server/**
+            **/tests/**
+            **/docs/**
+            **/*.yml
+            **/*.yaml
+            **/*.md
+            **/node_modules/**
+            **/vendor/**
+            **/*.log
