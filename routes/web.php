@@ -3,13 +3,20 @@
 use App\Http\Controllers\AjustesController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\PedidoController;
-use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\AuthController;
 
 Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/home', [HomeController::class, 'index'])->name('home');
-Route::get('/ajustes', [AjustesController::class, 'index'])->name('ajustes');
-Route::get('/crear', [PedidoController::class, 'create'])->name('pedidos.create');
+Route::get('/login', [AuthController::class, 'showLoginForm'])->name('login');
+Route::post('/login', [AuthController::class, 'login']);
+Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
+
+
+Route::middleware('auth')->group(function () {
+    Route::get('/home', [HomeController::class, 'index'])->name('home');
+    Route::get('/ajustes', [AjustesController::class, 'index'])->name('ajustes');
+    Route::get('/crear', [PedidoController::class, 'create'])->name('pedidos.create');
+});

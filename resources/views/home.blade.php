@@ -33,8 +33,7 @@
     </style>
 </head>
 
-<body
-    class="bg-background-light font-display text-slate-900 min-h-screen overflow-x-hidden">
+<body class="bg-background-light font-display text-slate-900 min-h-screen overflow-x-hidden">
     <div class="flex ethereal-bg min-h-screen relative">
 
         <!-- Mobile Backdrop Overlay -->
@@ -97,11 +96,15 @@
                     </div>
                     <p class="text-[10px] text-slate-500 mt-2">720GB of 1TB used</p>
                 </div>
-                <button
-                    class="w-full mt-6 flex items-center justify-center gap-2 px-4 py-3 rounded-xl border border-glass-border text-white text-sm font-bold hover:bg-white/5 transition-all">
-                    <span class="material-symbols-outlined text-sm">logout</span>
-                    Sign Out
-                </button>
+                <form action="{{ route('logout') }}" method="post">
+                    @csrf
+                    <button type="submit"
+                        class="w-full mt-6 flex items-center justify-center gap-2 px-4 py-3 rounded-xl border border-glass-border text-white text-sm font-bold hover:bg-white/5 transition-all">
+                        <span class="material-symbols-outlined text-sm">logout</span>
+                        Sign Out
+                    </button>
+                </form>
+
             </div>
         </aside>
 
